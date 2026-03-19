@@ -43,13 +43,15 @@ def tela_game_over(pontos):
         clock.tick(30)
 
 def loop_do_jogo():
+    img_fundo = pygame.image.load(os.path.join(os.path.dirname(__file__), "..", "assets", "imagens", "fundo.png")).convert()
+    img_fundo = pygame.transform.scale(img_fundo, (LARGURA, ALTURA))
     player = Jogador()
     itens, inimigos = [], []
     pontos = 0
     timer_item = timer_inimigo = 0
 
     while True:
-        tela.fill(CINZA_FUNDO)
+        tela.blit(img_fundo, (0, 0))
         dt = clock.get_time()
         timer_item += dt
         timer_inimigo += dt
