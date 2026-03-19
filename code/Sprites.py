@@ -35,9 +35,7 @@ class Jogador:
     def mover(self, teclas):
         if teclas[pygame.K_LEFT] and self.rect.left > 0: self.rect.x -= self.velocidade
         if teclas[pygame.K_RIGHT] and self.rect.right < LARGURA: self.rect.x += self.velocidade
-        if teclas[pygame.K_UP] and self.rect.top > 0: self.rect.y -= self.velocidade
-        if teclas[pygame.K_DOWN] and self.rect.bottom < ALTURA: self.rect.y += self.velocidade
-
+        
     def desenhar(self, superficie):
         superficie.blit(self.image, self.rect)
 

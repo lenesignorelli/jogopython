@@ -31,15 +31,14 @@ def tela_game_over(pontos):
         tela.fill(PRETO)
         desenhar_texto(tela, "GAME OVER", FONTE_TITULO, VERMELHO_PERIGO, LARGURA//2, 200)
         desenhar_texto(tela, f"Pontos: {pontos}", FONTE_TEXTO, BRANCO, LARGURA//2, 300)
-        desenhar_texto(tela, "R: Reiniciar | M: Menu", FONTE_TEXTO, BRANCO, LARGURA//2, 450)
+        desenhar_texto(tela, "R: Reiniciar", FONTE_TEXTO, BRANCO, LARGURA//2, 450)
 
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 pygame.quit(); sys.exit()
             if evento.type == pygame.KEYDOWN:
                 if evento.key == pygame.K_r: return "jogar"
-                if evento.key == pygame.K_m: return "menu"
-
+                
         pygame.display.flip()
         clock.tick(30)
 
@@ -94,7 +93,7 @@ def loop_do_jogo():
             inimigo.cair()
             if player.rect.colliderect(inimigo.rect):
                 pygame.mixer.music.stop() # Para a música de fundo
-                game_over.play()            # Toca o som de dano
+                game_over.play()            # Toca o som de game over
                 pygame.time.delay(500)    # Pequena pausa de 0.5s para o jogador ouvir o som antes da tela mudar
                 return tela_game_over(pontos)
             elif inimigo.rect.top > ALTURA: inimigos.remove(inimigo)
