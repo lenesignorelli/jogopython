@@ -46,6 +46,17 @@ def tela_game_over(pontos):
 def loop_do_jogo():
     img_fundo = pygame.image.load(os.path.join(os.path.dirname(__file__), "..", "assets", "imagens", "fundo.png")).convert()
     img_fundo = pygame.transform.scale(img_fundo, (LARGURA, ALTURA))
+    # --- CONFIGURAÇÃO DE SONS ---
+    pasta_sons = os.path.join(os.path.dirname(__file__), "..", "assets", "sons")
+    
+    # 1. Música de Fundo (Streaming - não carrega tudo na RAM de uma vez)
+    pygame.mixer.music.load(os.path.join(pasta_sons, "musica_fundo.mp3"))
+    pygame.mixer.music.set_volume(0.5) # Volume de 0.0 a 1.0
+    pygame.mixer.music.play(-1)        # -1 faz a música tocar em loop infinito
+
+    # 2. Efeitos Sonoros (Carregam na RAM para tocar instantaneamente)
+    som_moeda = pygame.mixer.Sound(os.path.join(pasta_sons, "som_moeda.wav"))
+    game_over = pygame.mixer.Sound(os.path.join(pasta_sons, "game_over.wav"))
     player = Jogador()
     itens, inimigos = [], []
     pontos = 0
@@ -74,7 +85,9 @@ def loop_do_jogo():
         for item in itens[:]:
             item.cair()
             if player.rect.colliderect(item.rect):
-                pontos += 1; itens.remove(item)
+                som_moeda.play()  # Toca o barulhinho da moeda!
+                pontos += 1; 
+                itens.remove(item)
             elif item.rect.top > ALTURA: itens.remove(item)
 
         for inimigo in inimigos[:]:
