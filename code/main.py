@@ -1,5 +1,6 @@
 import pygame
 import sys
+import os
 from config import *
 from sprites import Jogador, Inimigo, Item
 from utils import desenhar_texto
