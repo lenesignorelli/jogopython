@@ -93,6 +93,9 @@ def loop_do_jogo():
         for inimigo in inimigos[:]:
             inimigo.cair()
             if player.rect.colliderect(inimigo.rect):
+                pygame.mixer.music.stop() # Para a música de fundo
+                game_over.play()            # Toca o som de dano
+                pygame.time.delay(500)    # Pequena pausa de 0.5s para o jogador ouvir o som antes da tela mudar
                 return tela_game_over(pontos)
             elif inimigo.rect.top > ALTURA: inimigos.remove(inimigo)
 
