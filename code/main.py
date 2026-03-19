@@ -5,8 +5,8 @@ from config import *
 from sprites import Jogador, Inimigo, Item
 from utils import desenhar_texto
 
-# 1. Configurações Iniciais
 pygame.init()
+pygame.mixer.init() # Inicializa o sistema de som
 tela = pygame.display.set_mode((LARGURA, ALTURA))
 pygame.display.set_caption("Meu Jogo Modular")
 clock = pygame.time.Clock()
