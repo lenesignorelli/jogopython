@@ -8,14 +8,14 @@ from utils import desenhar_texto
 pygame.init()
 pygame.mixer.init() # Inicializa o sistema de som
 tela = pygame.display.set_mode((LARGURA, ALTURA))
-pygame.display.set_caption("Meu Jogo Modular")
+pygame.display.set_caption("Floresta Encantada")
 clock = pygame.time.Clock()
 
 def menu_principal():
     while True:
         tela.fill(AZUL)
-        desenhar_texto(tela, "MEU JOGO INCRÍVEL", FONTE_TITULO, BRANCO, LARGURA//2, 150)
-        desenhar_texto(tela, "Setas para mover | ENTER para começar", FONTE_TEXTO, PRETO, LARGURA//2, 400)
+        desenhar_texto(tela, "Floresta Encantada", FONTE_TITULO, BRANCO, LARGURA//2, 150)
+        desenhar_texto(tela, "SETAS para mover | ENTER para começar", FONTE_TEXTO, PRETO, LARGURA//2, 400)
         
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
@@ -45,6 +45,7 @@ def tela_game_over(pontos):
 def loop_do_jogo():
     img_fundo = pygame.image.load(os.path.join(os.path.dirname(__file__), "..", "assets", "imagens", "fundo.png")).convert()
     img_fundo = pygame.transform.scale(img_fundo, (LARGURA, ALTURA))
+    
     # --- CONFIGURAÇÃO DE SONS ---
     pasta_sons = os.path.join(os.path.dirname(__file__), "..", "assets", "sons")
     
@@ -56,6 +57,7 @@ def loop_do_jogo():
     # 2. Efeitos Sonoros (Carregam na RAM para tocar instantaneamente)
     som_moeda = pygame.mixer.Sound(os.path.join(pasta_sons, "som_moeda.wav"))
     game_over = pygame.mixer.Sound(os.path.join(pasta_sons, "game_over.wav"))
+    
     player = Jogador()
     itens, inimigos = [], []
     pontos = 0
@@ -93,7 +95,7 @@ def loop_do_jogo():
             inimigo.cair()
             if player.rect.colliderect(inimigo.rect):
                 pygame.mixer.music.stop() # Para a música de fundo
-                game_over.play()            # Toca o som de game over
+                game_over.play()          # Toca o som de game over
                 pygame.time.delay(500)    # Pequena pausa de 0.5s para o jogador ouvir o som antes da tela mudar
                 return tela_game_over(pontos)
             elif inimigo.rect.top > ALTURA: inimigos.remove(inimigo)

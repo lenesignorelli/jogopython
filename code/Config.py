@@ -1,6 +1,6 @@
 import pygame
 
-# Inicializamos o pygame aqui apenas para poder carregar as fontes
+# Inicializamos o pygame aqui para poder carregar as fontes
 pygame.init()
 
 # Dimensões
