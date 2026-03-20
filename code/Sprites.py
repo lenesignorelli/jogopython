@@ -25,7 +25,6 @@ def carregar_img(nome, largura, altura):
 
 class Jogador:
     def __init__(self):
-        # Carregamos a imagem aqui dentro, no momento em que o jogador nasce
         self.image = carregar_img('mago.png', 50, 60)
         self.rect = self.image.get_rect()
         self.rect.centerx = LARGURA // 2
