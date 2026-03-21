@@ -15,7 +15,8 @@ def menu_principal():
     while True:
         tela.fill(AZUL)
         desenhar_texto(tela, "Floresta Encantada", FONTE_TITULO, BRANCO, LARGURA//2, 150)
-        desenhar_texto(tela, "SETAS para mover | ENTER para começar", FONTE_TEXTO, PRETO, LARGURA//2, 400)
+        desenhar_texto(tela, "SETAS move para os lados | ENTER inicia", FONTE_TEXTO, PRETO, LARGURA//2, 300)
+        desenhar_texto(tela, "MOEDAS ganha pontos | ESPADA morre", FONTE_TEXTO, PRETO, LARGURA//2, 400)
         
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
