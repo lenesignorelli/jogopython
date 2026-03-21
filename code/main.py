@@ -5,6 +5,16 @@ from config import *
 from sprites import Jogador, Inimigo, Item
 from utils import desenhar_texto
 
+def path_recurso(caminho_relativo):
+    """ Retorna o caminho absoluto para o recurso, compatível com PyInstaller """
+    try:
+        # O PyInstaller cria uma pasta temporária e armazena o caminho em _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, caminho_relativo)
+
 pygame.init()
 pygame.mixer.init() # Inicializa o sistema de som
 tela = pygame.display.set_mode((LARGURA, ALTURA))
@@ -44,20 +54,18 @@ def tela_game_over(pontos):
         clock.tick(30)
 
 def loop_do_jogo():
-    img_fundo = pygame.image.load(os.path.join(os.path.dirname(__file__), "..", "assets", "imagens", "fundo.png")).convert()
+    # Substituímos toda a lógica de os.path pela nossa função
+    img_fundo = pygame.image.load(path_recurso("assets/imagens/fundo.png")).convert()
     img_fundo = pygame.transform.scale(img_fundo, (LARGURA, ALTURA))
     
     # --- CONFIGURAÇÃO DE SONS ---
-    pasta_sons = os.path.join(os.path.dirname(__file__), "..", "assets", "sons")
-    
-    # 1. Música de Fundo (Streaming - não carrega tudo na RAM de uma vez)
-    pygame.mixer.music.load(os.path.join(pasta_sons, "musica_fundo.mp3"))
-    pygame.mixer.music.set_volume(0.5) # Volume de 0.0 a 1.0
-    pygame.mixer.music.play(-1)        # -1 faz a música tocar em loop infinito
+    # Definimos os caminhos usando a função path_recurso
+    pygame.mixer.music.load(path_recurso("assets/sons/musica_fundo.mp3"))
+    pygame.mixer.music.set_volume(0.5)
+    pygame.mixer.music.play(-1)
 
-    # 2. Efeitos Sonoros (Carregam na RAM para tocar instantaneamente)
-    som_moeda = pygame.mixer.Sound(os.path.join(pasta_sons, "som_moeda.wav"))
-    game_over = pygame.mixer.Sound(os.path.join(pasta_sons, "game_over.wav"))
+    som_moeda = pygame.mixer.Sound(path_recurso("assets/sons/som_moeda.wav"))
+    game_over = pygame.mixer.Sound(path_recurso("assets/sons/game_over.wav"))    
     
     player = Jogador()
     itens, inimigos = [], []
